@@ -1,0 +1,11 @@
+<% include partials/header %>
+<h1><%=tweet.name%></h1>
+
+<h3><%=tweet.str%></h3>
+
+<% tweet.retweets.forEach(function(retweet){ %>
+    <p>
+        <strong><%= retweet.author %></strong> - <%= retweet.text %>
+    </p>
+<% }) %>
+<% include partials/footer %>

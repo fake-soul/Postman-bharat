@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <h4><a><%=tweet.str%></a></h4>
+                <div class="caption-full">
+                    <h4 class="pull-right">time stamp</h4>
+                    <h5><a><%=tweet.name%></a></h5>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/tweets/<%= tweet._id %>/retweets/new">Add Retweet</a>
+                </div>
+                <hr>
+                <% tweet.retweets.forEach(function(retweet){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= retweet.author.username  %></strong>
+                            <span class="pull-right">time stamp</span>
+                            <p>
+                                <%= retweet.text %> 
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

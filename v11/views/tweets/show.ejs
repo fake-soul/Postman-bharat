@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <h4><a><%=tweet.str%></a></h4>
+                <div class="caption-full">
+                    <p>
+                        <em>Submitted By <%= tweet.author.username %></em>
+                    </p>
+                    <% if(currentUser && tweet.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-warning" href="/tweets/<%= tweet._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/tweets/<%= tweet._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% }%>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/tweets/<%= tweet._id %>/retweets/new">Add New Retweet</a>
+                </div>
+                <hr>
+                <% tweet.retweets.forEach(function(retweet){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= retweet.author.username %></strong>
+                            <p>
+                                <%= retweet.text %> 
+                            </p>
+                        <% if(currentUser && retweet.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/tweets/<%=tweet._id %>/retweets/<%=retweet._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/tweets/<%=tweet._id %>/retweets/<%=retweet._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
